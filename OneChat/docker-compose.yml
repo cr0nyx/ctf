@@ -1,0 +1,6 @@
+version: "2"
+services:
+  one_chat:
+    build: ./task
+    ports:
+      - "1337:1337"

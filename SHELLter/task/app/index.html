@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
+</head>
+<body>
+    <script>
+        $('body').terminal({
+            hello: function (name) {
+                this.echo('Hello, ' + name +
+                    '. Welcome to SHELLter');
+            },
+            auth: function (name, pass) {
+                function XMLFunction(){
+                    var xml = '' +
+                        '<?xml version="1.0" encoding="UTF-8"?>' +
+                        '<root>' +
+                        '<name>' + name + '</name>' +
+                        '<password>' + pass + '</password>' +
+                        '</root>';
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if(xmlhttp.readyState == 4){
+                            console.log(xmlhttp.readyState);
+                            console.log(xmlhttp.responseText);
+                            document.getElementById('errorMessage').innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("POST","login.php",true);
+                    xmlhttp.send(xml);
+                };
+                XMLFunction();
+                this.echo('Error, username or password is incorrect. Try again.');
+            },
+            id: function() {
+                this.echo('Forbidden. Auth required.');
+            }, 
+            test : function() {
+                this.echo('Feature was deleted, check it out in full version.');
+            },
+            help: function () {
+                this.echo('help - show this menu\n' + 
+                'id - return user identity\n' + 
+                'hello <name> - display hello message\n' + 
+                'auth <username> <password> - authenticate to use more commands\n' + 
+                'test - very important test');
+            },
+        }, {
+            greetings: 'Greetings, Stranger!\n' + 'Type \'help\' to get help menu.'
+        });
+        </script>
+</body>
+</html>

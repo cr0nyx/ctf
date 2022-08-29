@@ -1,0 +1,6 @@
+version: "1"
+services:
+  app:
+    build: ./task
+    ports:
+      - "8008:80"
